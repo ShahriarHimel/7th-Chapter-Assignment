@@ -1,0 +1,81 @@
+
+
+
+1...................................................
+
+create table Table1(
+    -> AccId varchar(5),
+    -> AccName varchar(20),
+    -> Branch varchar(20),
+    -> balance numeric(10,2),
+    -> primary key (AccId)
+    -> )
+    -> ;
+
+
+insert into table1 values('10101', 'Rahim', 'Rajshahi', 1220.25);
+insert into table1 values('10201', 'Sohel', 'Khulna', 2340.70);
+insert into table1 values('10301', 'Keya', 'Dhaka', 1360.00);
+insert into table1 values('10401', 'Badol', 'Khulna', 3560.16);
+insert into table1 values('10102', 'Karim', 'Rajshahi', 1255.98);
+
+rename table table1 to AgranaiBank;
+
+select avg(balance) as average_balance from agranaibank;
+
+update agranaibank
+    -> set balance = balance * 1.10;
+
+
+
+2................................................................
+
+create table account(
+    -> account_id varchar(5),
+    -> name varchar(20)
+    -> );
+
+insert into account values('17', 'Bikash');
+insert into account values('21', 'Josh');
+insert into account values('25', 'Kevin');
+insert into account values('78', 'Ben');
+insert into account values('96', 'Karim');
+
+create table borrower(
+    -> loan_id varchar(5),
+    -> name varchar(20)
+    -> );
+
+
+insert into borrower values('103', 'Karim');
+insert into borrower values('106', 'Badol');
+insert into borrower values('112', 'Jamal');
+insert into borrower values('110', 'Bikash');
+insert into borrower values('109', 'Rahim');
+
+
+select distinct name from
+    -> (select name from account
+    -> union
+    -> select name from borrower) as customer_list;
+
+select distinct name from
+(select name from account
+union
+select name from borrower) as customer_list;
+
+
+3.............................................................................
+
+delimiter //
+create trigger low_balance before insert on agranaibank
+
+for each row
+begin
+if(new.balance < 2000.00) then
+insert into lowbalance values(new.Accname, new.AccId);
+end if;
+end //
+delimiter ;
+
+

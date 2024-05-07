@@ -1,0 +1,16 @@
+select  roll , name from table1 where name like 'S%' ;
+
+ select  roll , name from table1 where balance < 300 ;
+
+ rename table `lab_xm`. `table1` to `lab_xm` . `faculty`
+
+DELIMITER //
+CREATE TRIGGER mytrigger BEFORE INSERT on table1
+FOR EACH ROW
+BEGIN
+IF new.grade != 'F' then INSERT INTO passed (roll , name) VALUES( new.roll , new.name) ;
+end if ;
+end //
+ 
+
+ select name , Home_district from table1 natural join CSE where department = 'CSE' ;
